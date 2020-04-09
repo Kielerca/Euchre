@@ -1,0 +1,29 @@
+Welcome To euchre
+
+<script src = "https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script>
+    var socket = io();
+    var connectMe = function(){
+    var txtName =   document.getElementById("myText");
+    socket.emit('connectMe',{name:txtName.value });
+    }
+    socket.on('ServerMsg', function(dataVar){
+        console.log('Server says:' + dataVar.data);
+    });
+
+    socket.on('Welcome', function(dataVar){
+        txtName.value = "welcome to the game " + dataVar.data;
+    });
+
+    socket.on('Start', function(dataVar){
+        txtName.value = "Teammate is  " + dataVar.teammate;
+    });
+
+
+</script>
+
+<input type = "text"
+                 id = "myText"
+                 value = "text here" />
+     
+<button onclick="connectMe()">Connect to Game!</button>
